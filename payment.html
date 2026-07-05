@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nextel Connect | Payment</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+body{background: linear-gradient(180deg, #0A0F1E 0%, #0A1F15 100%); color:#fff;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:40px 20px;}
+.container{width:100%;max-width:560px;background:rgba(0,210,106,0.05);border:1px solid rgba(0,210,106,.2);border-radius:28px;padding:34px;box-shadow:0 30px 80px rgba(0,0,0,.6);backdrop-filter: blur(10px);}
+.brand{text-align:center;color:#00D26A;letter-spacing:6px;font-size:13px;font-weight:700;margin-bottom:12px;}
+h1{text-align:center;font-size:28px;margin-bottom:10px;background:linear-gradient(90deg,#00D26A,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sub{text-align:center;font-size:13px;color:#B8C2BC;margin-bottom:18px;}
+.box{margin-top:18px;padding:18px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(0,210,106,.15);}
+.price{font-size:22px;font-weight:700;background:linear-gradient(90deg,#00D26A,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:8px;}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:#ccc;}
+.box strong{color:#00D26A;font-size:13px;}
+.copy-btn{margin-top:12px;width:100%;padding:10px;border-radius:50px;border:1px solid rgba(0,210,106,.4);background:transparent;color:#00D26A;cursor:pointer;font-weight:600;transition:.3s;}
+.copy-btn:hover{background:rgba(0,210,106,.1);transform:translateY(-1px);}
+button{width:100%;margin-top:22px;padding:15px;border:none;border-radius:50px;background:linear-gradient(90deg,#00D26A,#FFD700);font-weight:700;cursor:pointer;color:#0A0F1E;transition:.3s;}
+button:hover{transform:translateY(-2px);}
+button:disabled{opacity:0.5; cursor:not-allowed;}
+.success{display:none;margin-top:18px;padding:14px;border-radius:14px;background:rgba(0,210,106,.12);border:1px solid rgba(0,210,106,.25);text-align:center;color:#00D26A;}
+.note{margin-top:15px;font-size:12px;color:#aaa;text-align:center;}
+#planTag{margin-top:6px;font-size:12px;color:#aaa;}
+.timer-box{background: linear-gradient(90deg, rgba(255,0,0,0.15), rgba(255,215,0,0.15));border: 1px solid rgba(255,215,0,.3);padding: 14px;border-radius: 16px;text-align: center;margin-bottom: 18px;}
+.timer-box p{font-size:12px; color:#FFD700;}
+#timer{font-size:24px; font-weight:800; color:#FFD700; letter-spacing:2px;}
+
+/* NEW: BLACK ON YELLOW ACCOUNT NUMBER */
+.account-box{
+  background: #FFD700;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 6px;
+}
+.account-number{
+  font-size:20px;
+  font-weight:900;
+  color:#000;
+  letter-spacing:2px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="brand">NEXTEL CONNECT</div>
+<h1>Complete Payment</h1>
+<p class="sub">Activate your <span id="planNameInline">eSIM</span> to start earning</p>
+
+<div class="timer-box">
+  <p>⏰ Complete payment before timer runs out</p>
+  <div id="timer">15:00</div>
+</div>
+
+<div class="box">
+<div id="planName">Loading...</div>
+<div class="price" id="planPrice"></div>
+<div id="planTag"></div>
+</div>
+
+<!-- ACCOUNT 1 -->
+<div class="box">
+<strong>PAYMENT OPTION 1</strong>
+<div class="row"><span>Bank</span><span>Safehaven</span></div>
+<div class="row"><span>Account Name</span><span>Divine abanum</span></div>
+<div class="row"><span>Account Number</span></div>
+<div class="account-box">
+  <div class="account-number">0116244574</div>
+</div>
+<button class="copy-btn" onclick="copyAccount('0116244574',this)">Copy Account Number</button>
+</div>
+
+<!-- ACCOUNT 2 -->
+<div class="box">
+<strong>PAYMENT OPTION 2</strong>
+<div class="row"><span>Bank</span><span>PALMPAY</span></div>
+<div class="row"><span>Account Name</span><span>Divine Abanum</span></div>
+<div class="row"><span>Account Number</span></div>
+<div class="account-box">
+  <div class="account-number">9160049921</div>
+</div>
+<button class="copy-btn" onclick="copyAccount('9160049921',this)">Copy Account Number</button>
+</div>
+
+<button id="confirmBtn">I Have Made Payment</button>
+<div class="success" id="successBox">Opening Telegram to notify support...</div>
+<div class="note">Click above after payment. Your details will be sent automatically.</div>
+</div>
+
+<script>
+/* LOAD PLAN + USER FROM LOCALSTORAGE */
+const user = JSON.parse(localStorage.getItem('nextel_user'));
+const params = new URLSearchParams(window.location.search);
+const urlPlan = (params.get("plan") || "").toLowerCase().trim();
+
+const packages = {
+diamond: { name: "💎 Diamond eSIM Package", price: "₦10,500", tag: "Instant Activation" },
+royale: { name: "👑 Royale eSIM Package", price: "₦17,500", tag: "VIP Priority Activation" }
+};
+
+let planData = { name: "Unknown Package", price: "--", tag: "❌ No plan selected" };
+
+if(user && user.plan && packages[user.plan]) {
+  planData = packages[user.plan];
+}
+else if(urlPlan && packages[urlPlan]) {
+  planData = packages[urlPlan];
+}
+
+document.getElementById("planName").innerText = planData.name;
+document.getElementById("planNameInline").innerText = planData.name.split(' ')[1];
+document.getElementById("planPrice").innerText = planData.price;
+document.getElementById("planTag").innerText = planData.tag;
+
+/* COPY FUNCTION */
+function copyAccount(number, btn){
+  navigator.clipboard.writeText(number);
+  const old = btn.innerText;
+  btn.innerText = "Copied ✓";
+  setTimeout(()=>{ btn.innerText = old; },1500);
+}
+
+/* TIMER - 15 MINUTES */
+let timeLeft = 15 * 60;
+const timerEl = document.getElementById('timer');
+const confirmBtn = document.getElementById('confirmBtn');
+
+const countdown = setInterval(() => {
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+  minutes = minutes < 10? '0' + minutes : minutes;
+  seconds = seconds < 10? '0' + seconds : seconds;
+  timerEl.innerText = `${minutes}:${seconds}`;
+  if(timeLeft <= 60) { timerEl.style.color = '#FF0000'; }
+  if(timeLeft <= 0) {
+    clearInterval(countdown);
+    timerEl.innerText = "00:00";
+    confirmBtn.disabled = true;
+    confirmBtn.innerText = "Session Expired";
+    alert("Payment session expired. Please go back and restart.");
+  }
+  timeLeft--;
+}, 1000);
+
+/* BUTTON ACTION - REDIRECT TO TELEGRAM WITH MESSAGE */
+const btn = document.getElementById("confirmBtn");
+const success = document.getElementById("successBox");
+
+btn.addEventListener("click",()=>{
+  clearInterval(countdown);
+  btn.innerText = "Opening Telegram...";
+  btn.disabled = true;
+  success.style.display = "block";
+
+  if(user) {
+    user.activated = true;
+    user.tier = "Silver";
+    localStorage.setItem('nextel_user', JSON.stringify(user));
+  }
+
+  const userName = user? user.name : "Customer";
+  const userEmail = user? user.email : "No email";
+  const message = `Hello Nextel Support,
+I just made payment for ${planData.name} - ${planData.price}
+
+Name: ${userName}
+Email: ${userEmail}
+Please activate my account ASAP.
+
+Thank you`;
+
+  const telegramURL = `https://t.me/magnusstaff?text=${encodeURIComponent(message)}`;
+
+  setTimeout(()=>{
+    window.location.href = telegramURL;
+  },2000);
+});
+</script>
+</body>
+</html>

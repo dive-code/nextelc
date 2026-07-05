@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#041B17">
+<meta name="description" content="Nextel Connect - Nigeria's Trusted Digital Banking & VTU Platform">
+<title>Nextel Connect | Your World. Your Network.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+/* ========== STABILITY + PRO POLISH ========== */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:#031713;color:#fff;overflow-x:hidden;transform:translateZ(0);text-rendering:optimizeLegibility;}
+img{max-width:100%;display:block;user-select:none;-webkit-user-drag:none;}
+:root{--primary:#17D98B;--secondary:#10B96F;--gold:#F5C542;--dark:#031713;--card:#0B2B24;--muted:#B7C6C2;}
+
+/* KILL ALL SHAKE ON MOBILE */
+@media (max-width: 768px){
+  body::before,body::after,.particles{display:none !important;} 
+  .hero-image img,.circle{animation:none !important;transform:none !important;} 
+  .service-box,.why-box,.stat-box,.floating-card{backdrop-filter:none !important;} 
+}
+
+/* Subtle BG Glows - Desktop only */
+body::before,body::after{content:"";position:fixed;width:500px;height:500px;z-index:-2;opacity:.4;will-change:transform;}
+body::before{background:radial-gradient(circle,rgba(23,217,139,.08),transparent 70%);top:-150px;left:-100px;animation:glowOne 30s ease-in-out infinite alternate;}
+body::after{background:radial-gradient(circle,rgba(245,197,66,.06),transparent 70%);bottom:-150px;right:-100px;animation:glowTwo 32s ease-in-out infinite alternate;}
+@keyframes glowOne{0%{transform:translate(0,0);}100%{transform:translate(30px,20px);}}
+@keyframes glowTwo{0%{transform:translate(0,0);}100%{transform:translate(-30px,-20px);}}
+
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;}
+.particles span{position:absolute;width:4px;height:4px;background:rgba(255,255,255,.04);border-radius:50%;animation:float 30s linear infinite;}
+@keyframes float{0%{transform:translateY(110vh);opacity:0;}20%{opacity:.6;}100%{transform:translateY(-20vh);opacity:0;}}
+
+#loader{position:fixed;inset:0;background:#041B17;display:flex;justify-content:center;align-items:center;z-index:99999;transition:opacity .6s;}
+.loader-box{text-align:center;}
+.loader-box img{width:80px;margin-bottom:16px;}
+.loader-box h2{font-size:24px;font-weight:700;background:linear-gradient(90deg,#22E39A,#F5C542);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+header{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:94%;max-width:1400px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(11,43,36,.8);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:16px;z-index:999;transition:.3s;}
+header.sticky{background:rgba(4,27,23,.98);box-shadow:0 8px 30px rgba(0,0,0,.3);}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo img{width:44px;height:44px;}
+.logo h1{font-size:22px;font-weight:800;background:linear-gradient(90deg,#22E39A,#F5C542);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+nav{display:flex;gap:28px;}
+nav a{color:white;font-size:15px;font-weight:500;position:relative;text-decoration:none;opacity:.9;}
+nav a:hover{color:#F5C542;opacity:1;}
+.nav-btn{padding:10px 22px;font-size:14px;border-radius:12px;background:linear-gradient(90deg,#18D18A,#F5C542);font-weight:700;color:#041B17;text-decoration:none;transition:.3s;}
+.nav-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(245,197,66,.25);}
+.menu{display:none;font-size:26px;cursor:pointer;color:#22E39A;}
+@media(max-width:992px){nav{display:none;}.menu{display:block;}header{padding:0 18px;}nav.active{display:flex;position:absolute;top:80px;left:0;width:100%;flex-direction:column;padding:20px;background:#06221d;gap:16px;border-radius:0 0 16px 16px;}}
+
+section.hidden{opacity:0;transform:translateY(30px);transition:opacity .7s ease, transform .7s ease;}
+section.show{opacity:1;transform:translateY(0);}
+.section-heading{text-align:center;margin-bottom:50px;}
+.section-heading span{display:inline-block;padding:8px 16px;background:rgba(24,209,138,.12);border-radius:40px;color:#22E39A;font-size:13px;font-weight:600;margin-bottom:14px;letter-spacing:.5px;}
+.section-heading h2{font-size:40px;margin-bottom:16px;font-weight:800;background:linear-gradient(90deg,#22E39A,#F5C542);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+.hero-btn,.hero-btn-outline{position:relative;overflow:hidden;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;transition:.3s;display:inline-block;}
+.hero-btn{background:linear-gradient(90deg,#18D18A,#F5C542);color:#041B17;box-shadow:0 8px 20px rgba(24,209,138,.25);}
+.hero-btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(24,209,138,.35);}
+.hero-btn-outline{border:1.5px solid #22E39A;color:white;background:transparent;}
+.hero-btn-outline:hover{background:#22E39A;color:#041B17;}
+
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 8% 80px;}
+.hero-content{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(23,217,139,.1);border:1px solid rgba(23,217,139,.2);border-radius:50px;font-size:13px;margin-bottom:20px;color:#22E39A;font-weight:600;}
+.hero h1{font-size:56px;line-height:1.15;font-weight:800;margin-bottom:20px;}
+.hero p{font-size:16px;line-height:1.8;color:var(--muted);max-width:600px;margin-bottom:32px;}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap;}
+.hero-stats h2{font-size:28px;color:#22E39A;font-weight:800;}
+.hero-stats span{color:var(--muted);font-size:14px;}
+.hero-image{position:relative;display:flex;justify-content:center;align-items:center;}
+.circle{position:absolute;width:420px;height:420px;background:radial-gradient(circle,rgba(23,217,139,.12),transparent 70%);border-radius:50%;filter:blur(1px);}
+.hero-image img{width:100%;max-width:400px;border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.35);}
+.floating-card{position:absolute;background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);padding:14px 18px;border-radius:14px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.2);}
+.floating-card i{font-size:18px;color:#F5C542;}
+.card1{top:20px;right:0;}.card2{bottom:20px;left:0;}.card3{top:50%;right:-50px;}
+@media(max-width:991px){.hero-content{grid-template-columns:1fr;text-align:center;}.hero-buttons,.hero-stats{justify-content:center;}.card1,.card2,.card3{display:none;}.hero h1{font-size:36px;}.hero{padding-top:120px;}}
+
+.promo-section,.verified,.loans,.vcard,.services-section,.why-nextel,.stats-section,.testimonials-section,.big-cta,.faq-section,.download-app,.newsletter,.awards,.final-cta{padding:90px 8%;}
+.verified,.loans,.vcard{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.verified img,.loan-image img,.vcard-image img,.download-image img{width:100%;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.25);}
+.tag{display:inline-block;padding:8px 16px;background:rgba(24,209,138,.12);border-radius:40px;color:#22E39A;font-weight:600;margin-bottom:14px;font-size:13px;}
+.verified-grid,.loan-grid,.vcard-grid{grid-template-columns:repeat(2,1fr);gap:20px;margin:32px 0;display:grid;}
+.verified-card,.loan-card,.vcard-card{background:rgba(255,255,255,.04);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,.06);}
+.verified-card .icon,.loan-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(24,209,138,.15);margin-bottom:12px;color:#F5C542;font-size:22px;}
+.services-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;display:grid;}
+.service-box{background:rgba(255,255,255,.04);padding:28px;border-radius:18px;border:1px solid rgba(255,255,255,.06);transition:.3s;}
+.service-box:hover{transform:translateY(-6px);background:rgba(255,255,255,.06);border-color:rgba(24,209,138,.3);}
+.service-icon{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(24,209,138,.15),rgba(245,197,66,.1));margin-bottom:18px;}
+.service-icon i{font-size:26px;color:#F5C542;}
+.service-box a{color:#22E39A;text-decoration:none;font-weight:600;font-size:14px;display:inline-flex;gap:6px;align-items:center;margin-top:10px;}
+.why-grid,.stats-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;display:grid;}
+.why-box,.stat-box{background:rgba(255,255,255,.04);padding:28px;border-radius:18px;text-align:center;border:1px solid rgba(255,255,255,.06);}
+.why-icon{width:60px;height:60px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:rgba(24,209,138,.15);color:#F5C542;font-size:24px;}
+.stat-box i{font-size:28px;color:#F5C542;margin-bottom:10px;}
+.stat-box h2{font-size:36px;background:linear-gradient(90deg,#22E39A,#F5C542);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.testimonial-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;}
+.testimonial-card{min-width:320px;background:rgba(255,255,255,.04);padding:28px;border-radius:18px;text-align:center;scroll-snap-align:start;border:1px solid rgba(255,255,255,.06);}
+.testimonial-card img{width:70px;height:70px;border-radius:50%;margin:0 auto 14px;object-fit:cover;border:2px solid rgba(24,209,138,.3);}
+.testimonial-card h3{font-size:17px;margin-bottom:4px;}
+.testimonial-card span{color:var(--muted);font-size:13px;}
+.testimonial-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:14px 0;}
+.stars{color:#F5C542;font-size:16px;letter-spacing:2px;}
+.big-cta,.cta-box{text-align:center;border-radius:24px;background:linear-gradient(135deg,rgba(24,209,138,.1),rgba(245,197,66,.06));border:1px solid rgba(255,255,255,.06);}
+.cta-box{max-width:1000px;margin:auto;padding:60px 40px;}
+.faq-item{background:rgba(255,255,255,.04);margin-bottom:14px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);}
+.faq-btn{width:100%;background:none;border:none;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;color:white;font-size:16px;font-weight:600;cursor:pointer;}
+.faq-content{display:none;padding:0 20px 20px;color:var(--muted);line-height:1.7;}
+.faq-item.active .faq-content{display:block;}
+.download-app{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.store-btn{padding:14px 28px;background:#18D18A;color:#041B17;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;gap:10px;}
+.newsletter{text-align:center;}
+.newsletter form{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:28px;}
+.newsletter input{width:380px;max-width:100%;padding:14px 20px;border:none;border-radius:12px;outline:none;background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.1);}
+.newsletter button{padding:14px 32px;background:#18D18A;border:none;border-radius:12px;font-weight:700;cursor:pointer;color:#041B17;}
+.awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+.award{background:rgba(255,255,255,.04);padding:32px;border-radius:18px;text-align:center;border:1px solid rgba(255,255,255,.06);}
+.award i{font-size:32px;color:#F5C542;margin-bottom:12px;}
+
+/* ========== FOOTER PRO ========== */
+.footer{padding:70px 8% 24px;background:#051B16;border-top:1px solid rgba(255,255,255,.06);margin-top:60px;}
+.footer-container{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:30px;}
+.footer-col h4{font-size:15px;font-weight:700;color:#F5C542;margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px;}
+.footer-col ul li{margin:10px 0;}
+.footer-col ul li a{color:var(--muted);font-size:14px;transition:.3s;display:flex;align-items:center;gap:8px;text-decoration:none;}
+.footer-col ul li a:hover{color:#22E39A;padding-left:4px;}
+.footer-brand p{color:var(--muted);line-height:1.7;font-size:14px;margin:16px 0 20px;max-width:380px;}
+.footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.footer-logo-wrap img{width:40px;height:40px;}
+.footer-logo-wrap h3{font-size:20px;font-weight:800;background:linear-gradient(90deg,#22E39A,#F5C542);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.footer-social{display:flex;gap:12px;margin-top:14px;}
+.footer-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:#B7C6C2;transition:.3s;border:1px solid rgba(255,255,255,.06);text-decoration:none;}
+.footer-social a:hover{background:#18D18A;color:#041B17;transform:translateY(-2px);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap;gap:14px;}
+.footer-bottom p{color:#8A9590;font-size:13px;}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:#8A9590;font-size:13px;transition:.3s;text-decoration:none;}
+.footer-legal a:hover{color:#22E39A;}
+@media(max-width:992px){.footer-container{grid-template-columns:1fr 1fr;gap:30px;}}
+@media(max-width:600px){.footer-container{grid-template-columns:1fr;text-align:center;}.footer-brand p{margin:16px auto 20px;}.footer-social{justify-content:center;}.footer-bottom{justify-content:center;text-align:center;}}
+
+#topBtn{position:fixed;right:20px;bottom:20px;width:50px;height:50px;border:none;border-radius:50%;background:linear-gradient(135deg,#18D18A,#F5C542);color:#041B17;font-size:18px;cursor:pointer;display:none;z-index:999;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(24,209,138,.3);}
+@media(max-width:991px){.verified,.loans,.vcard,.download-app{grid-template-columns:1fr;}.loan-image,.vcard-image,.download-image{order:-1;}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important;}}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.25);transform:scale(0);animation:ripple .6s linear;pointer-events:none;}
+@keyframes ripple{to{transform:scale(4);opacity:0;}}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-box"><img src="logo.png" alt="Nextel Logo"><h2>Nextel Connect</h2></div></div>
+<div class="particles"><span></span><span></span><span></span><span></span></div>
+
+<header>
+  <div class="logo"><img src="logo.png" alt="Nextel Logo"><h1>Nextel Connect</h1></div>
+  <nav><a href="#">Home</a><a href="#services">Services</a><a href="#">Business</a><a href="#">Pricing</a><a href="#">About</a><a href="#">Contact</a></nav>
+  <a href="register.html" class="nav-btn">Get Started</a>
+  <div class="menu"><i class="fas fa-bars"></i></div>
+</header>
+
+<section class="hero hidden">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><i class="fas fa-shield-check"></i> Nigeria's Trusted Digital Platform</div>
+      <h1>One Platform.<br>Unlimited Digital Possibilities.</h1>
+      <p>Experience the future of digital payments with Nextel Connect. Buy airtime, data, pay bills, create virtual cards, apply for loans, get POS.</p>
+      <div class="hero-buttons">
+        <a href="register.html" class="hero-btn">Create Account</a>
+        <a href="#services" class="hero-btn-outline">Explore Services</a>
+      </div>
+      <div class="hero-stats"><div><h2>100K+</h2><span>Happy Customers</span></div><div><h2>99.9%</h2><span>Successful Transactions</span></div><div><h2>24/7</h2><span>Support Team</span></div></div>
+    </div>
+    <div class="hero-image">
+      <div class="circle"></div>
+      <img src="images/verified-pos.jpg" alt="Nextel Connect">
+      <div class="floating-card card1"><i class="fas fa-credit-card"></i><p>Virtual Card</p></div>
+      <div class="floating-card card2"><i class="fas fa-wallet"></i><p>Instant Payments</p></div>
+      <div class="floating-card card3"><i class="fas fa-mobile-screen"></i><p>Buy Data</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="promo-section hidden">
+  <div class="section-heading"><span>FEATURED OPPORTUNITIES</span><h2>Everything You Need In One Platform</h2></div>
+  <div class="promo-track" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+    <div style="background:rgba(255,255,255,.04);border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.06);"><img src="images/verified-pos.jpg" alt=""><div style="padding:24px;"><h3>Become a Verified Subscriber</h3><p style="color:var(--muted);margin:10px 0;">Unlock exclusive member benefits including free POS eligibility.</p><a href="register.html" style="color:#22E39A;font-weight:600;">Become Verified →</a></div></div>
+    <div style="background:rgba(255,255,255,.04);border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.06);"><img src="images/loan.jpg" alt=""><div style="padding:24px;"><h3>Quick Business Loans</h3><p style="color:var(--muted);margin:10px 0;">Access flexible loans with fast approval.</p><a href="register.html" style="color:#22E39A;font-weight:600;">Apply Now →</a></div></div>
+    <div style="background:rgba(255,255,255,.04);border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.06);"><img src="images/vcard.jpg" alt=""><div style="padding:24px;"><h3>Nextel Virtual Card</h3><p style="color:var(--muted);margin:10px 0;">Pay for international subscriptions anywhere.</p><a href="register.html" style="color:#22E39A;font-weight:600;">Create Card →</a></div></div>
+  </div>
+</section>
+
+<section class="verified hidden">
+  <div class="verified-image"><img src="images/verified-pos.jpg" alt=""></div>
+  <div class="verified-content">
+    <span class="tag">NEXTEL VERIFIED</span>
+    <h2>Grow Your Business With Verified Membership</h2>
+    <p>Join thousands of verified Nextel users enjoying premium financial services.</p>
+    <div class="verified-grid">
+      <div class="verified-card"><div class="icon"><i class="fas fa-store"></i></div><h3>Merchant Account</h3><p>Accept customer payments professionally.</p></div>
+      <div class="verified-card"><div class="icon"><i class="fas fa-credit-card"></i></div><h3>POS Eligibility</h3><p>Qualified members can access Nextel POS services.</p></div>
+      <div class="verified-card"><div class="icon"><i class="fas fa-bolt"></i></div><h3>Instant Settlement</h3><p>Fast payment processing for businesses.</p></div>
+      <div class="verified-card"><div class="icon"><i class="fas fa-headset"></i></div><h3>Priority Support</h3><p>Receive faster assistance whenever needed.</p></div>
+    </div>
+    <a href="register.html" class="hero-btn">Become Verified</a>
+  </div>
+</section>
+
+<section class="loans hidden">
+  <div class="loan-content">
+    <span class="tag">NEXTEL FINANCE</span>
+    <h2>Access Fast Loans When You Need Them Most</h2>
+    <p>Whether you're expanding your business or handling unexpected needs, get quick financing.</p>
+    <div class="loan-grid">
+      <div class="loan-card"><div class="loan-icon"><i class="fas fa-file-signature"></i></div><h3>Easy Application</h3><p>Complete your application online within minutes.</p></div>
+      <div class="loan-card"><div class="loan-icon"><i class="fas fa-bolt"></i></div><h3>Fast Approval</h3><p>Applications are reviewed quickly for eligible users.</p></div>
+      <div class="loan-card"><div class="loan-icon"><i class="fas fa-wallet"></i></div><h3>Flexible Repayment</h3><p>Choose repayment options that fit your finances.</p></div>
+      <div class="loan-card"><div class="loan-icon"><i class="fas fa-shield-halved"></i></div><h3>Secure Process</h3><p>Your information remains protected.</p></div>
+    </div>
+    <a href="register.html" class="hero-btn">Apply For Loan</a>
+  </div>
+  <div class="loan-image"><img src="images/loan.jpg" alt="Nextel Loan"></div>
+</section>
+
+<section class="vcard hidden">
+  <div class="vcard-image"><img src="images/vcard.jpg" alt="Nextel Virtual Card"></div>
+  <div class="vcard-content">
+    <span class="tag">NEXTEL V-CARD</span>
+    <h2>Pay Anywhere In The World</h2>
+    <p>The Nextel Virtual Card allows you to make secure online payments globally.</p>
+    <div class="vcard-grid">
+      <div class="vcard-card"><i class="fas fa-globe"></i><h3>Worldwide Payments</h3><p>Use your card on supported international platforms.</p></div>
+      <div class="vcard-card"><i class="fas fa-lock"></i><h3>Secure Transactions</h3><p>Advanced encryption keeps your payments protected.</p></div>
+      <div class="vcard-card"><i class="fas fa-bolt"></i><h3>Instant Creation</h3><p>Generate your virtual card within minutes.</p></div>
+      <div class="vcard-card"><i class="fas fa-credit-card"></i><h3>Easy Funding</h3><p>Fund your card and spend online anytime.</p></div>
+    </div>
+    <a href="register.html" class="hero-btn">Get Virtual Card</a>
+  </div>
+</section>
+
+<section id="services" class="services-section hidden">
+  <div class="section-heading"><span>OUR SERVICES</span><h2>Everything You Need In One Digital Platform</h2></div>
+  <div class="services-grid">
+    <div class="service-box"><div class="service-icon"><i class="fas fa-signal"></i></div><h3>Data Subscription</h3><p>Buy affordable data bundles across all major networks.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-mobile-screen"></i></div><h3>Airtime Top-up</h3><p>Recharge airtime for yourself, family or customers.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-bolt"></i></div><h3>Electricity Bills</h3><p>Pay electricity bills instantly and receive your token.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-tv"></i></div><h3>Cable TV</h3><p>Renew DSTV, GOtv and Startimes subscriptions.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-building-columns"></i></div><h3>Agency Banking</h3><p>Provide cash withdrawal, transfers and payments.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-money-bill-transfer"></i></div><h3>Money Transfer</h3><p>Transfer money securely with instant confirmation.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-qrcode"></i></div><h3>QR Payments</h3><p>Accept customer payments instantly using QR.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+    <div class="service-box"><div class="service-icon"><i class="fas fa-user-shield"></i></div><h3>Account Security</h3><p>Your account is protected with advanced security.</p><a href="register.html">Learn More <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<section class="why-nextel hidden">
+  <div class="section-heading"><span>WHY NEXTEL CONNECT</span><h2>Built For Speed, Security & Growth</h2></div>
+  <div class="why-grid">
+    <div class="why-box"><div class="why-icon"><i class="fas fa-bolt"></i></div><h3>Lightning Fast</h3><p>Transactions completed within seconds.</p></div>
+    <div class="why-box"><div class="why-icon"><i class="fas fa-lock"></i></div><h3>Bank-Level Security</h3><p>Every payment is protected with encryption.</p></div>
+    <div class="why-box"><div class="why-icon"><i class="fas fa-headset"></i></div><h3>24/7 Support</h3><p>Friendly customer support available.</p></div>
+    <div class="why-box"><div class="why-icon"><i class="fas fa-globe-africa"></i></div><h3>Accessible Anywhere</h3><p>Access anytime using your smartphone.</p></div>
+    <div class="why-box"><div class="why-icon"><i class="fas fa-chart-line"></i></div><h3>Business Growth</h3><p>Grow with POS and agency banking.</p></div>
+    <div class="why-box"><div class="why-icon"><i class="fas fa-handshake"></i></div><h3>Trusted Platform</h3><p>Thousands of users rely on us daily.</p></div>
+  </div>
+</section>
+
+<section class="stats-section hidden">
+  <div class="section-heading"><span>OUR IMPACT</span><h2>Trusted By Thousands</h2></div>
+  <div class="stats-grid">
+    <div class="stat-box"><i class="fas fa-users"></i><h2 class="counter" data-target="100000">0</h2><p>Registered Users</p></div>
+    <div class="stat-box"><i class="fas fa-repeat"></i><h2 class="counter" data-target="5000000">0</h2><p>Transactions Processed</p></div>
+    <div class="stat-box"><i class="fas fa-store"></i><h2 class="counter" data-target="5000">0</h2><p>Business Partners</p></div>
+    <div class="stat-box"><i class="fas fa-star"></i><h2>99.9%</h2><p>Service Uptime</p></div>
+  </div>
+</section>
+
+<section class="testimonials-section hidden">
+  <div class="section-heading"><span>TESTIMONIALS</span><h2>What Our Customers Say</h2></div>
+  <div class="testimonial-slider">
+    <div class="testimonial-track">
+      <div class="testimonial-card"><img src="images/user1.jpg" alt="Daniel A."><h3>Daniel A.</h3><span>Business Owner</span><p>"None is as fast and reliable as Nextel Connect."</p><div class="stars">★★★</div></div>
+      <div class="testimonial-card"><img src="images/user2.jpg" alt="Esther O."><h3>Esther O.</h3><span>Entrepreneur</span><p>"The POS service has helped my business grow."</p><div class="stars">★★★</div></div>
+      <div class="testimonial-card"><img src="images/user3.jpg" alt="Miracle E."><h3>Miracle E.</h3><span>Agent Banker</span><p>"Data, transfers and bills are processed instantly."</p><div class="stars">★★★★★</div></div>
+      <div class="testimonial-card"><img src="images/user4.jpg" alt="Blessing T."><h3>Blessing T.</h3><span>Hair Stylist | Lagos</span><p>"I’d lost hope after every loan app failed me. Nextel gave me a business loan to start my hair business. Now I’m working in peace and paying back on flexible terms. I’m truly grateful. Thank you, Nextel! ❤️"</p><div class="stars">★★★</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="big-cta hidden"><div class="cta-box"><h2>Ready To Join Nextel Connect?</h2><p>Create your account today and enjoy secure payments, instant VTU services, POS solutions, virtual cards.</p><div class="hero-buttons"><a href="register.html" class="hero-btn">Create Account</a><a href="#services" class="hero-btn-outline">Explore Services</a></div></div></section>
+
+<section class="faq-section hidden">
+  <div class="section-heading"><span>SUPPORT</span><h2>Frequently Asked Questions</h2></div>
+  <div class="faq">
+    <div class="faq-item active"><button class="faq-btn"><span>How fast are transactions?</span><i class="fas fa-plus"></i></button><div class="faq-content"><p>Most airtime, data, transfers and bills are completed instantly.</p></div></div>
+    <div class="faq-item"><button class="faq-btn"><span>Is Nextel Connect secure?</span><i class="fas fa-plus"></i></button><div class="faq-content"><p>Yes. Every transaction is protected using modern encryption.</p></div></div>
+    <div class="faq-item"><button class="faq-btn"><span>Can I become an agent?</span><i class="fas fa-plus"></i></button><div class="faq-content"><p>Yes. Register and apply for Agency Banking from your dashboard.</p></div></div>
+    <div class="faq-item"><button class="faq-btn"><span>Who can apply for loans?</span><i class="fas fa-plus"></i></button><div class="faq-content"><p>Eligible verified users can apply.</p></div></div>
+  </div>
+</section>
+
+<section class="download-app hidden">
+  <div class="download-content"><span class="tag">DOWNLOAD APP</span><h2>Manage Everything From Your Phone</h2><p>Buy airtime, data, pay bills, manage your virtual card anytime.</p><div class="store-buttons"><a href="#" class="store-btn"><i class="fab fa-google-play"></i> Google Play</a><a href="#" class="store-btn"><i class="fab fa-apple"></i> App Store</a></div></div>
+  <div class="download-image"><img src="images/app-mockup.png" alt="Nextel App"></div>
+</section>
+
+<section class="newsletter hidden">
+  <h2>Stay Updated</h2>
+  <p>Receive updates about new services, promotions and exclusive opportunities.</p>
+  <form><input type="email" placeholder="Enter your email address" required><button>Subscribe</button></form>
+</section>
+
+<section class="awards hidden">
+  <div class="award"><i class="fas fa-award"></i><h3>Trusted Platform</h3><p>Reliable digital services with thousands of satisfied customers.</p></div>
+  <div class="award"><i class="fas fa-medal"></i><h3>Fast Processing</h3><p>Instant transaction delivery.</p></div>
+  <div class="award"><i class="fas fa-shield-alt"></i><h3>Secure Payments</h3><p>Advanced protection for every transaction.</p></div>
+</section>
+
+<section class="final-cta hidden"><div class="cta-box"><h2>Ready to Experience the Future of Digital Payments?</h2><p>Join thousands of Nigerians using Nextel Connect every day.</p><div class="hero-buttons"><a href="register.html" class="hero-btn">Create Account</a><a href="#services" class="hero-btn-outline">View Services</a></div></div></section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-col footer-brand">
+      <div class="footer-logo-wrap">
+        <img src="logo.png" alt="Nextel Connect Logo">
+        <h3>Nextel Connect</h3>
+      </div>
+      <p>
+        Nextel Connect is a modern financial technology platform providing VTU services, agency banking, POS terminals, loans, virtual cards and secure digital payment solutions across Nigeria.
+      </p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="X Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Airtime</a></li>
+        <li><a href="#">Data</a></li>
+        <li><a href="#">Bills</a></li>
+        <li><a href="#">POS</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="mailto:support@nextelconnect.com"><i class="fas fa-envelope"></i> Email Support</a></li>
+        <li><a href="#"><i class="fas fa-comment-dots"></i> 24/7 Live Chat</a></li>
+        <li><a href="https://wa.me/" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <strong>Nextel Connect</strong>. All Rights Reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+</footer>
+
+<button id="topBtn"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+window.addEventListener("load",()=>{setTimeout(()=>{const l=document.getElementById("loader");if(l){l.style.opacity="0";l.style.visibility="hidden";}},1000);});
+const header=document.querySelector("header");window.addEventListener("scroll",()=>{header.classList.toggle("sticky",window.scrollY>50);});
+const menu=document.querySelector(".menu"),nav=document.querySelector("nav");if(menu){menu.onclick=()=>nav.classList.toggle("active");}
+const topBtn=document.getElementById("topBtn");
+window.addEventListener("scroll",()=>{topBtn.style.display=window.pageYOffset>500?"flex":"none";});
+topBtn.onclick=()=>{window.scrollTo({top:0,behavior:"smooth"});};
+
+const reveals=document.querySelectorAll("section");
+const revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("show");revealObserver.unobserve(entry.target);}});},{threshold:.1, rootMargin:"0px 0px -40px 0px"});
+reveals.forEach(sec=>{sec.classList.add("hidden");revealObserver.observe(sec);});
+
+const counters=document.querySelectorAll(".counter");
+const counterObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){const counter=entry.target;const target=+counter.dataset.target;let count=0;const speed=target/150;const update=()=>{count+=speed;if(count<target){counter.innerText=Math.ceil(count).toLocaleString();requestAnimationFrame(update);}else{counter.innerText=target.toLocaleString()+"+";}};update();counterObserver.unobserve(counter);}});},{threshold:.5});
+counters.forEach(counter=>counterObserver.observe(counter));
+
+document.querySelectorAll(".faq-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{const item=btn.parentElement;const icon=item.querySelector("i");
+    document.querySelectorAll(".faq-item").forEach(faq=>{if(faq!==item){faq.classList.remove("active");faq.querySelector("i").className="fas fa-plus";}});
+    item.classList.toggle("active");
+    icon.className=item.classList.contains("active")?"fas fa-minus":"fas fa-plus";
+  });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener("click",function(e){
+    const target=document.querySelector(this.getAttribute("href"));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:"smooth", block:"start"});nav.classList.remove("active");}
+  });
+});
+
+document.querySelectorAll(".hero-btn,.hero-btn-outline,.nav-btn,.store-btn").forEach(button=>{
+  button.addEventListener("click",function(e){
+    const circle=document.createElement("span");
+    const diameter=Math.max(this.clientWidth,this.clientHeight);
+    circle.style.width=circle.style.height=diameter+"px";
+    circle.style.left=e.offsetX-diameter/2+"px";
+    circle.style.top=e.offsetY-diameter/2+"px";
+    circle.classList.add("ripple");
+    this.appendChild(circle);
+    setTimeout(()=>circle.remove(),600);
+  });
+});
+</script>
+</body>
+</html>

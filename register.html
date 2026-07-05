@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nextle Connect | Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:"Poppins",sans-serif;
+background:#04140E;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:40px 20px;
+color:#fff;
+}
+.container{
+width:100%;
+max-width:560px;
+background:rgba(8,24,18,.95);
+border:1px solid rgba(212,175,55,.18);
+border-radius:30px;
+padding:40px 32px;
+box-shadow:0 30px 80px rgba(0,0,0,.55);
+}
+.brand{text-align:center;font-size:13px;letter-spacing:8px;font-weight:700;color:#D4AF37;margin-bottom:18px;}
+h1{text-align:center;font-size:34px;font-weight:700;background:linear-gradient(90deg,#F7D76A,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.sub{text-align:center;color:#C4CCC7;font-size:15px;margin-bottom:10px;}
+.tagline{text-align:center;font-size:14px;color:#D4AF37;margin-bottom:28px;}
+.promo{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.18);padding:18px;border-radius:18px;text-align:center;margin-bottom:28px;}
+form label{display:block;margin-top:18px;margin-bottom:8px;color:#D4AF37;font-size:13px;}
+input,select{
+width:100%;padding:15px 18px;border-radius:16px;border:1px solid rgba(212,175,55,.15);
+background:rgba(255,255,255,.03);color:#fff;font-size:14px;font-weight:500;outline:none;
+}
+select{appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;}
+select option{background:#0B2018;color:#fff;}
+select:focus, input:focus{border-color:#D4AF37;box-shadow:0 0 0 3px rgba(212,175,55,.15);}
+.plan-info{margin-top:18px;padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.15);font-size:13px;line-height:1.8;}
+button{
+width:100%;margin-top:30px;padding:17px;border:none;border-radius:50px;
+background:linear-gradient(90deg,#D4AF37,#F8DD79);font-weight:700;cursor:pointer;color:#04140E;transition:.3s;
+}
+button:hover{transform:translateY(-2px);}
+.success{display:none;margin-top:18px;padding:16px;border-radius:16px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);text-align:center;color:#34D399;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="brand">NEXTLE CONNECT</div>
+<h1>Create Account</h1>
+<p class="sub">Join Nextle Connect and activate your premium eSIM package.</p>
+<div class="tagline">Connect • Browse • Stay Connected</div>
+<div class="promo" id="promoBox">✨ Activate your account today and enjoy fast eSIM activation.</div>
+
+<form id="registerForm">
+<label>Full Name</label>
+<input type="text" id="fullname" required>
+
+<label>Email Address</label>
+<input type="email" id="email" required>
+
+<label>Phone Number</label>
+<input type="tel" id="phone" required>
+
+<label>Country</label>
+<select id="country" required>
+<option value="">Select Country</option>
+<option value="NG">Nigeria</option>
+<option value="GH">Ghana</option>
+<option value="OTHER">Other</option>
+</select>
+
+<label>Select Package</label>
+<select id="package" required>
+<option value="">Choose Package</option>
+<option value="diamond">💎 Diamond eSIM</option>
+<option value="royale">👑 Royale eSIM</option>
+</select>
+
+<div class="plan-info" id="planInfo">
+<strong>Select a package</strong><br><br>
+Package information will appear here.
+</div>
+
+<label>Password</label>
+<input type="password" id="password" required>
+
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword" required>
+
+<div class="success" id="successBox">✅ Account created successfully. Redirecting...</div>
+<button type="submit">Create Account</button>
+</form>
+</div>
+
+<script>
+const packages = {
+diamond: {
+NG: "₦10,500", GH: "₵185", OTHER: "₦10,500",
+benefits: ["Instant eSIM Activation","Fast Setup","Premium Support","Secure Registration"]
+},
+royale: {
+NG: "₦17,500", GH: "₵300", OTHER: "₦17,500",
+benefits: ["Priority Activation","VIP Support","Premium Features","Exclusive Benefits"]
+}
+};
+
+const packageSelect = document.getElementById("package");
+const countrySelect = document.getElementById("country");
+const planInfo = document.getElementById("planInfo");
+const promoBox = document.getElementById("promoBox");
+
+function getCountry(){
+const c = countrySelect.value;
+if(c === "GH") return "GH";
+if(c === "NG") return "NG";
+return "OTHER";
+}
+
+function updateUI(){
+const plan = packageSelect.value;
+const country = getCountry();
+if(!plan){
+promoBox.innerHTML = "✨ Activate your account today and enjoy fast eSIM activation.";
+planInfo.innerHTML = "<strong>Select a package</strong><br><br>Package information will appear here.";
+return;
+}
+const item = packages[plan];
+promoBox.innerHTML = `✨ <strong>${plan.toUpperCase()}</strong> selected successfully.`;
+planInfo.innerHTML = `
+<strong>${plan.toUpperCase()} eSIM</strong><br><br>
+Activation Fee: <b>${item[country]}</b><br><br>
+✔ ${item.benefits[0]}<br>
+✔ ${item.benefits[1]}<br>
+✔ ${item.benefits[2]}<br>
+✔ ${item.benefits[3]}
+`;
+}
+packageSelect.addEventListener("change", updateUI);
+countrySelect.addEventListener("change", updateUI);
+
+const form = document.getElementById("registerForm");
+const success = document.getElementById("successBox");
+
+form.addEventListener("submit", function(e){
+e.preventDefault();
+const password = document.getElementById("password");
+const confirm = document.getElementById("confirmPassword");
+if(password.value!== confirm.value){
+alert("Passwords do not match");
+return;
+}
+
+const plan = packageSelect.value;
+const country = getCountry();
+const fullname = document.getElementById("fullname").value;
+const email = document.getElementById("email").value;
+const phone = document.getElementById("phone").value;
+
+// 🔥 SAVE USER TO LOCALSTORAGE
+localStorage.setItem('nextel_user', JSON.stringify({
+name: fullname,
+email: email,
+phone: phone,
+plan: plan,
+planName: plan === 'diamond'? 'Diamond eSIM' : 'Royale eSIM',
+country: country,
+price: packages[plan][country],
+activated: false, // not activated yet
+balance: 0,
+tier: "Beginner",
+referrals: 0
+}));
+
+success.style.display = "block";
+
+setTimeout(() => {
+window.location.href = "dashboard.html"; // go to dashboard directly
+}, 1500);
+
+});
+</script>
+</body>
+</html>
